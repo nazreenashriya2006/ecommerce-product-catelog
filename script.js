@@ -11,38 +11,36 @@ async function loadProducts() {
 function displayProducts(items) {
     const container = document.getElementById("productsContainer");
 
+    if (items.length === 0) {
+        container.innerHTML = `
+            <h2 style="text-align:center;color:#666;">
+                No products found 😔
+            </h2>
+        `;
+        return;
+    }
+
     container.innerHTML = "";
 
     items.forEach(product => {
         container.innerHTML += `
-        <div class="product-card">
-            <span class="badge">🔥 Hot</span>
-
-            <img src="${product.image}" alt="${product.name}">
-
-            <div class="product-info">
-                <h3>${product.name}</h3>
-
-                <div class="rating">
-                    ⭐⭐⭐⭐⭐
+            <div class="product-card">
+                <img src="${product.image}" alt="${product.name}">
+                <div class="product-info">
+                    <h3>${product.name}</h3>
+                    <p class="price">₹${product.price.toLocaleString()}</p>
+                    <p class="category">${product.category}</p>
+                    <button onclick="buyNow('${product.name}')">
+                        Buy Now
+                    </button>
                 </div>
-
-                <p class="price">₹${product.price.toLocaleString()}</p>
-
-                <p class="category">${product.category}</p>
-
-                <button class="buy-btn"
-                onclick="buyNow('${product.name}')">
-                🛒 Buy Now
-                </button>
             </div>
-        </div>
         `;
     });
 }
 
 function buyNow(productName) {
-    alert("✅ " + productName + " added to cart!");
+    alert(productName + " selected successfully!");
 }
 
 document.getElementById("searchInput").addEventListener("input", function () {
@@ -50,7 +48,8 @@ document.getElementById("searchInput").addEventListener("input", function () {
     const value = this.value.toLowerCase();
 
     const filtered = currentProducts.filter(product =>
-        product.name.toLowerCase().includes(value)
+        product.name.toLowerCase().includes(value) ||
+        product.category.toLowerCase().includes(value)
     );
 
     displayProducts(filtered);
@@ -69,6 +68,8 @@ document.getElementById("categoryFilter").addEventListener("change", function ()
     }
 
     displayProducts(currentProducts);
+
+    document.getElementById("searchInput").value = "";
 });
 
 loadProducts();
