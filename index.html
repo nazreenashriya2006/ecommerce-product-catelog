@@ -4,30 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechStore</title>
+    <title>TechStore Pro</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 ```
-<header>
-    <h1>🛒 TechStore</h1>
-    <p>Explore the Latest Gadgets</p>
-</header>
+<nav class="navbar">
+    <h2>🛒 TechStore Pro</h2>
+    <button class="cart-btn">🛍️ Shop Now</button>
+</nav>
 
-<div class="controls">
-    <input type="text" id="searchInput" placeholder="Search products...">
+<section class="hero">
+    <div class="hero-content">
+        <h1>Discover Premium Gadgets</h1>
+        <p>Explore smartphones, laptops, watches and accessories.</p>
+    </div>
+</section>
+
+<section class="controls">
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Search products..."
+    >
 
     <select id="categoryFilter">
         <option value="All">All Categories</option>
-        <option value="Phone">Phone</option>
-        <option value="Laptop">Laptop</option>
-        <option value="Watch">Watch</option>
+        <option value="Phone">Phones</option>
+        <option value="Laptop">Laptops</option>
+        <option value="Watch">Watches</option>
         <option value="Audio">Audio</option>
     </select>
-</div>
+</section>
 
-<div id="productsContainer" class="products-grid">
+<section id="productsContainer" class="products-grid"></section>
+
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div id="modalBody"></div>
+    </div>
 </div>
 
 <script src="script.js"></script>
@@ -35,4 +52,3 @@
 
 </body>
 </html>
-
