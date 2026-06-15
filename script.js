@@ -2,14 +2,10 @@ let products = [];
 let currentProducts = [];
 
 async function loadProducts() {
-    try {
-        const response = await fetch("products.json");
-        products = await response.json();
-        currentProducts = products;
-        displayProducts(products);
-    } catch (error) {
-        console.error("Error loading products:", error);
-    }
+    const response = await fetch("products.json");
+    products = await response.json();
+    currentProducts = products;
+    displayProducts(products);
 }
 
 function displayProducts(items) {
@@ -20,18 +16,37 @@ function displayProducts(items) {
     items.forEach(product => {
         container.innerHTML += `
         <div class="product-card">
+            <span class="badge">🔥 Hot</span>
+
             <img src="${product.image}" alt="${product.name}">
+
             <div class="product-info">
                 <h3>${product.name}</h3>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
                 <p class="price">₹${product.price.toLocaleString()}</p>
+
                 <p class="category">${product.category}</p>
+
+                <button class="buy-btn"
+                onclick="buyNow('${product.name}')">
+                🛒 Buy Now
+                </button>
             </div>
         </div>
         `;
     });
 }
 
+function buyNow(productName) {
+    alert("✅ " + productName + " added to cart!");
+}
+
 document.getElementById("searchInput").addEventListener("input", function () {
+
     const value = this.value.toLowerCase();
 
     const filtered = currentProducts.filter(product =>
@@ -42,6 +57,7 @@ document.getElementById("searchInput").addEventListener("input", function () {
 });
 
 document.getElementById("categoryFilter").addEventListener("change", function () {
+
     const category = this.value;
 
     if (category === "All") {
